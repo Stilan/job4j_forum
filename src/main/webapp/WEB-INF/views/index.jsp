@@ -45,9 +45,15 @@
             <tbody>
             <c:forEach items="${posts}" var="post">
                 <tr>
-                    <td><c:out value="${post.name}"/></td>
-                    <td><c:out value="${post.description}"/></td>
-                    <td><c:out value="${post.created.time}"/></td>
+                    <td>
+                        <c:out value="${post.name}"/>
+                    </td>
+                    <td>
+                        <c:out value="${post.description}"/>
+                    </td>
+                    <td>
+                        <c:out value="${post.created.time}"/>
+                    </td>
                     <td>
                         <a href="<c:url value='/edit?id=${post.id}'/>">
                             <i class="fa fa-edit mr-3"></i></a>

@@ -2,33 +2,32 @@ package ru.job4j.forum.service;
 
 import org.springframework.stereotype.Service;
 import ru.job4j.forum.model.Post;
+import ru.job4j.forum.store.PostRepository;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class PostService {
 
-    private static final AtomicInteger POST_ID = new AtomicInteger();
+    private final PostRepository posts;
 
-    private final Map<Integer, Post> posts = new HashMap<>();
-
-
-    public Collection<Post> getAll() {
-        return posts.values();
+    public PostService(PostRepository posts) {
+        this.posts = posts;
     }
 
     public Post findByTypeId(int id) {
-        return posts.get(id);
+         return posts.findById(id).get();
     }
 
     public void save(Post post) {
+        post.setCreated(Calendar.getInstance());
+        posts.save(post);
 
-        if (post.getId() == 0) {
-          post.setId(POST_ID.incrementAndGet());
-          post.setCreated(Calendar.getInstance());
-          posts.put(post.getId(), post);
-        }
-        posts.replace(post.getId(), post);
+    }
+
+    public List<Post> getAll() {
+        List<Post> rsl = new ArrayList<>();
+        posts.findAll().forEach(rsl::add);
+        return rsl;
     }
 }
