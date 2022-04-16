@@ -14,18 +14,6 @@ public class Post {
     private String description;
     private Calendar created;
 
-    public static Post of(int id, String name, String description) {
-        Post post = new Post();
-        post.name = name;
-        post.description = description;
-        post.setCreated(Calendar.getInstance());
-        return post;
-    }
-
-    public Post() {
-
-    }
-
     public int getId() {
         return id;
     }
